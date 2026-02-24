@@ -14,4 +14,4 @@ jobs:
 
   deloyment:
     needs: build
-    uses:  org/Devops-workflow/.github/workflows/deployment.yml@v1
+    uses:  KrakennTunisie/Devops-workflow/.github/workflows/deployment.yml@v1
