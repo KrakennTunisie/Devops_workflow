@@ -7,6 +7,7 @@ on:
 jobs:
   sast:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/SAST.yml@main
+    secrets: inherit
 
   build:
     needs: sast
