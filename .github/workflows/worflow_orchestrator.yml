@@ -16,3 +16,6 @@ jobs:
   deloyment:
     needs: build
     uses:  KrakennTunisie/Devops_workflow/.github/workflows/deployment.yml@main
+    with:
+      service-name: ${{ github.event.repository.name }}
+      service-port: "8081"
