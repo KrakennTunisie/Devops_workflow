@@ -6,12 +6,12 @@ on:
 
 jobs:
   sast:
-    uses: KrakennTunisie/Devops-workflow/.github/workflows/SAST.yml@main
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/SAST.yml@main
 
   build:
     needs: sast
-    uses:  KrakennTunisie/Devops-workflow/.github/workflows/build.yml@main
+    uses:  KrakennTunisie/Devops_workflow/.github/workflows/build.yml@main
 
   deloyment:
     needs: build
-    uses:  KrakennTunisie/Devops-workflow/.github/workflows/deployment.yml@main
+    uses:  KrakennTunisie/Devops_workflow/.github/workflows/deployment.yml@main
