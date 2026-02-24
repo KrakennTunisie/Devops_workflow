@@ -6,11 +6,11 @@ on:
 
 jobs:
   sast:
-    uses: org/Devops-workflow/.github/workflows/SAST.yml@v1
+    uses: org/Devops-workflow/.github/workflows/SAST.yml@main
 
   buildAPP:
     needs: sast
-    uses:  org/Devops-workflow/.github/workflows/build.yml@v1
+    uses:  org/Devops-workflow/.github/workflows/build.yml@main
 
   deloyment:
     needs: buildAPP
