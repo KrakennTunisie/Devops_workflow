@@ -8,10 +8,10 @@ jobs:
   sast:
     uses: org/Devops-workflow/.github/workflows/SAST.yml@v1
 
-  build:
+  buildAPP:
     needs: sast
     uses:  org/Devops-workflow/.github/workflows/build.yml@v1
 
   deloyment:
-    needs: build
+    needs: buildAPP
     uses:  org/Devops-workflow/.github/workflows/deployment.yml@v1
