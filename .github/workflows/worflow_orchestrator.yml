@@ -14,4 +14,4 @@ jobs:
 
   deloyment:
     needs: buildAPP
-    uses:  org/Devops-workflow/.github/workflows/deployment.yml@v1
+    uses:  org/Devops-workflow/.github/workflows/deployment.yml@main
