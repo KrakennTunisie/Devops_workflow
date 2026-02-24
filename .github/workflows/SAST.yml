@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Quality Test / Sonar
+
+# Controls when the workflow will run
+on:
+ workflow_call:
+  secrets:
+    SONAR_TOKEN:
+     required: true
+    SONAR_ORG:
+     required: true
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+         java-version: '17'
+         distribution: 'temurin'
+          
+
+      - name: SonarCloud Analysis
+        run:  |
+          mvn verify sonar:sonar \
+            -Dsonar.projectKey=${{ github.event.repository.name }} \
+            -Dsonar.organization=${{ secrets.SONAR_ORG }} \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
