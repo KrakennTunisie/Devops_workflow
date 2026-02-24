@@ -6,7 +6,7 @@ on:
 
 jobs:
   sast:
-    uses: org/Devops-workflow/.github/workflows/sast.yml@v1
+    uses: org/Devops-workflow/.github/workflows/SAST.yml@v1
 
   build:
     needs: sast
