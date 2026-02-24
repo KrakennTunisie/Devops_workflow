@@ -16,6 +16,11 @@ jobs:
   deloyment:
     needs: build
     uses:  KrakennTunisie/Devops_workflow/.github/workflows/deployment.yml@main
+    secrets:
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
     with:
       service-name: ${{ github.event.repository.name }}
       service-port: "8081"
