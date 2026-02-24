@@ -8,10 +8,10 @@ jobs:
   sast:
     uses: KrakennTunisie/Devops-workflow/.github/workflows/SAST.yml@main
 
-  buildAPP:
+  build:
     needs: sast
     uses:  KrakennTunisie/Devops-workflow/.github/workflows/build.yml@main
 
   deloyment:
-    needs: buildAPP
+    needs: build
     uses:  KrakennTunisie/Devops-workflow/.github/workflows/deployment.yml@main
