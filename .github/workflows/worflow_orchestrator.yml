@@ -9,6 +9,14 @@ jobs:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/SAST.yml@main
     secrets: inherit
 
+  tests:
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/test.yml@main
+    secrets: inherit
+    with:
+      java-version: "17"
+      maven-args: "-B -ntp verify"
+      working-directory: "."    
+
   build:
     needs: sast
     uses:  KrakennTunisie/Devops_workflow/.github/workflows/build.yml@main
