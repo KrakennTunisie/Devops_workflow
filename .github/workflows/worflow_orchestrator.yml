@@ -10,6 +10,7 @@ jobs:
     secrets: inherit
 
   tests:
+    needs: sast
     uses: KrakennTunisie/Devops_workflow/.github/workflows/test.yml@main
     secrets: inherit
     with:
@@ -18,7 +19,7 @@ jobs:
       working-directory: "."    
 
   build:
-    needs: sast
+    needs: tests
     uses:  KrakennTunisie/Devops_workflow/.github/workflows/build.yml@main
 
   deloyment:
