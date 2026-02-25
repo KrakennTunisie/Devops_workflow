@@ -16,8 +16,6 @@ on:
         required: true
       SERVER_PASSWORD:
         required: true
-      DOCKERHUB_USERNAME:
-        required: true
 
 jobs:
   deploy:
@@ -30,9 +28,13 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.service-name }}:latest
-            docker stop ${{ inputs.service-name }} || true
-            docker rm ${{ inputs.service-name }} || true
-            docker run -d --name ${{ inputs.service-name }} \
-              -p 8080:8080 \
-              ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.service-name }}:latest
+            set -e
+            cd /opt/stack
+
+            # (optionnel mais recommandé si registry privé ou token)
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdinn
+
+            docker compose pull ${{ inputs.service-name }}
+            docker compose up -d ${{ inputs.service-name }}
+
+            docker image prune -f
