@@ -6,9 +6,6 @@ on:
       service-name:
         required: true
         type: string
-      service-port:
-       required: true
-       type: string
     secrets:
       SERVER_HOST:
         required: true
