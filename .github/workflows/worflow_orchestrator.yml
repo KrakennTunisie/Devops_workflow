@@ -17,14 +17,7 @@ on:
        
     
 jobs:
-  sast:
-    uses: KrakennTunisie/Devops_workflow/.github/workflows/SAST.yml@main
-    secrets: 
-       SONAR_TOKEN : ${{ secrets.SONAR_TOKEN }}
-       SONAR_ORG : ${{ secrets.SONAR_ORG }}
-
   tests:
-    needs: sast
     uses: KrakennTunisie/Devops_workflow/.github/workflows/test.yml@main
     secrets: inherit
     with:
