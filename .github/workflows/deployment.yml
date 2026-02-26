@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             set -e
-            cd /opt/stack
+            cd /home/oumaima
 
             # (optionnel mais recommandé si registry privé ou token)
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdinn
