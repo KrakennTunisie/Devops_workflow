@@ -14,8 +14,6 @@ on:
          required: true
        SERVER_PASSWORD: 
          required: true
-       EUREKA_PORT: 
-        required: true
        
     
 jobs:
@@ -43,6 +41,5 @@ jobs:
       SERVER_HOST: ${{ secrets.SERVER_HOST }}
       SERVER_USER: ${{ secrets.SERVER_USER }}
       SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-      EUREKA_PORT: ${{ secrets.EUREKA_PORT }}
     with:
       service-name: ${{ github.event.repository.name }}
