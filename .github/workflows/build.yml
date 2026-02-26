@@ -36,10 +36,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Build & Push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags:  |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
+      - name: Set repo name to lowercase
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+
+      - name: Build and push Docker image with Docker Compose
+        run: |
+          # Utilisation de docker-compose avec la variable REPO_NAME
+          docker-compose build
+          docker-compose push
+
+      - name: Cleanup
+        run: docker system prune -f
