@@ -48,11 +48,11 @@ jobs:
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
-      - name: Build and push Docker image with Docker Compose
-        run: |
-          # Utilisation de docker-compose avec la variable REPO_NAME
-          docker-compose build
-          docker-compose push
-
+      - name: Build and Push multi-arch image
+        uses: docker/build-push-action@v5
+        with:
+           context: .
+           push: true
+           platforms: linux/amd64,linux/arm64
       - name: Cleanup
         run: docker system prune -f
