@@ -1,25 +1,24 @@
 name: CI-CD Orchestrator
 
 on:
- workflow_call:
-   inputs:
-     java-version:
+  workflow_call:
+    inputs:
+      java-version:
         required: false
         type: string
         default: "17"
-   secrets:
-       SERVER_HOST:
-         required: true
-       SERVER_USER:
-         required: true
-       SERVER_PASSWORD: 
-         required: true
-       PRO_SERVER_IP:
-          required: true
-       PROD_SERVER_PASSWORD:
-          required: true
-       
-    
+    secrets:
+      SERVER_HOST:
+        required: true
+      SERVER_USER:
+        required: true
+      SERVER_PASSWORD:
+        required: true
+      PRO_SERVER_IP:
+        required: true
+      PROD_SERVER_PASSWORD:
+        required: true
+
 jobs:
   tests:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/test.yml@main
@@ -27,15 +26,15 @@ jobs:
     with:
       java-version: "17"
       maven-args: "-B -ntp verify"
-      working-directory: "."    
+      working-directory: "."
 
   build:
     needs: tests
-    uses:  KrakennTunisie/Devops_workflow/.github/workflows/build.yml@main
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/build.yml@main
 
   deployment:
     needs: build
-    uses:  KrakennTunisie/Devops_workflow/.github/workflows/deployment.yml@main
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/deployment.yml@main
     secrets:
       SERVER_HOST: ${{ secrets.SERVER_HOST }}
       SERVER_USER: ${{ secrets.SERVER_USER }}
@@ -43,23 +42,19 @@ jobs:
     with:
       service-name: ${{ github.event.repository.name }}
 
-   smoke-test:
+  smoke-test:                                        # ← 2 espaces
     needs: deployment
-    uses: ./.github/workflows/smoke-test.yml@main
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/smoke-test.yml@main
     secrets:
       SERVER_HOST: ${{ secrets.SERVER_HOST }}
     with:
       service-name: ${{ github.event.repository.name }}
 
-     deployment-prod:
-     needs: smoke-test
-     uses: ./.github/workflow/deployment-prod.yml@main
-     secrets:
-        PRO_SERVER_IP : ${{secrets.PRO_SERVER_IP}}
-        PROD_SERVER_PASSWORD: ${{secrets.PROD_SERVER_PASSWORD}}
-     with:
-        service-name: ${{ github.event.repository.name }}
-        
-       
-     
-   
+  deployment-prod:                                   # ← 2 espaces
+    needs: smoke-test
+    uses: KrakennTunisie/Devops_workflow/.github/workflows/deployment-prod.yml@main
+    secrets:
+      PRO_SERVER_IP: ${{ secrets.PRO_SERVER_IP }}
+      PROD_SERVER_PASSWORD: ${{ secrets.PROD_SERVER_PASSWORD }}
+    with:
+      service-name: ${{ github.event.repository.name }}
