@@ -1,0 +1,34 @@
+name: deployment-prod
+
+on:
+  workflow_call:
+    inputs:
+      service-name:
+        required: true
+        type: string
+    secrets:
+      PRO_SERVER_IP:
+        required: true
+      PROD_SERVER_PASSWORD:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.PRO_SERVER_IP }}
+          password: ${{ secrets.PROD_SERVER_PASSWORD}}
+          script: |
+            set -e
+            cd /home/oumaima
+
+            # (optionnel mais recommandé si registry privé ou token)
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            docker compose pull ${{ inputs.service-name }}
+            docker compose up -d ${{ inputs.service-name }}
+
+            docker image prune -f
