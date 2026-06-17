@@ -14,6 +14,10 @@ on:
          required: true
        SERVER_PASSWORD: 
          required: true
+       PRO_SERVER_IP:
+          required: true
+       PROD_SERVER_PASSWORD:
+          required: true
        
     
 jobs:
@@ -38,3 +42,24 @@ jobs:
       SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
     with:
       service-name: ${{ github.event.repository.name }}
+
+   smoke-test:
+    needs: deployment
+    uses: ./.github/workflows/smoke-test.yml@main
+    secrets:
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+    with:
+      service-name: ${{ github.event.repository.name }}
+
+     deployment-prod:
+     needs: smoke-test
+     uses: ./.github/workflow/deployment-prod.yml@main
+     secrets:
+        PRO_SERVER_IP : ${{secrets.PRO_SERVER_IP}}
+        PROD_SERVER_PASSWORD: ${{secrets.PROD_SERVER_PASSWORD}}
+     with:
+        service-name: ${{ github.event.repository.name }}
+        
+       
+     
+   
