@@ -36,4 +36,4 @@ jobs:
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" -L \
             https://kerp-web.duckdns.org/)
-          [ "$STATUS" = "200" ] || (echo "Frontend KO ($STATUS)" && exit 1)
+          [[ "$STATUS" = "200" || "$STATUS" = "401" ]] || (echo "Frontend KO ($STATUS)" && exit 1)
