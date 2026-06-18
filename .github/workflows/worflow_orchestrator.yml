@@ -47,8 +47,7 @@ jobs:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/smoke-test.yml@main
     secrets:
       SERVER_HOST: ${{ secrets.SERVER_HOST }}
-    with:
-      service-name: ${{ github.event.repository.name }}
+      
 
   deployment-prod:                                   # ← 2 espaces
     needs: smoke-test
