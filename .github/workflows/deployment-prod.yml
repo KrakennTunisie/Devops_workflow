@@ -9,7 +9,7 @@ on:
     secrets:
       PRO_SERVER_IP:
         required: true
-      PROD_SERVER_PASSWORD:
+      PROD_SSH_PRIVATE_KEY:
         required: true
 
 jobs:
@@ -20,8 +20,8 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.PRO_SERVER_IP }}
-          username: ${{ secrets.SERVER_PROD_USER }}
-          key: ${{ secrets.PROD_SSH_PRIVATE_KEY}}
+          username: root
+          key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           debug: true
           script: |
             set -eux
