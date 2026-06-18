@@ -16,7 +16,7 @@ on:
         required: true
       PRO_SERVER_IP:
         required: true
-      PROD_SERVER_PASSWORD:
+      PROD_SSH_PRIVATE_KEY:
         required: true
 
 jobs:
@@ -54,6 +54,6 @@ jobs:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/deployment-prod.yml@main
     secrets:
       PRO_SERVER_IP: ${{ secrets.PRO_SERVER_IP }}
-      PROD_SERVER_PASSWORD: ${{ secrets.PROD_SERVER_PASSWORD }}
+      PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
     with:
       service-name: ${{ github.event.repository.name }}
