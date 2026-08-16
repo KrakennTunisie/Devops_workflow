@@ -47,6 +47,8 @@ jobs:
     uses: KrakennTunisie/Devops_workflow/.github/workflows/smoke-test.yml@main
     secrets:
       SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
       
 
   deployment-prod:                                   # ← 2 espaces
