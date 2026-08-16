@@ -42,20 +42,19 @@ jobs:
     with:
       service-name: ${{ github.event.repository.name }}
 
-  smoke-test:                                        # ← 2 espaces
-    needs: deployment
-    uses: KrakennTunisie/Devops_workflow/.github/workflows/smoke-test.yml@main
-    secrets:
-      SERVER_HOST: ${{ secrets.SERVER_HOST }}
-      SERVER_USER: ${{ secrets.SERVER_USER }}
-      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-      
+# smoke-test:
+  #   needs: deployment
+  #   uses: KrakennTunisie/Devops_workflow/.github/workflows/smoke-test.yml@main
+  #   secrets:
+  #     SERVER_HOST: ${{ secrets.SERVER_HOST }}
+  #     SERVER_USER: ${{ secrets.SERVER_USER }}
+  #     SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
 
-  deployment-prod:                                   # ← 2 espaces
-    needs: smoke-test
-    uses: KrakennTunisie/Devops_workflow/.github/workflows/deployment-prod.yml@main
-    secrets:
-      PRO_SERVER_IP: ${{ secrets.PRO_SERVER_IP }}
-      PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
-    with:
-      service-name: ${{ github.event.repository.name }}
+  # deployment-prod:
+  #   needs: smoke-test
+  #   uses: KrakennTunisie/Devops_workflow/.github/workflows/deployment-prod.yml@main
+  #   secrets:
+  #     PRO_SERVER_IP: ${{ secrets.PRO_SERVER_IP }}
+  #     PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+  #   with:
+  #     service-name: ${{ github.event.repository.name }}
