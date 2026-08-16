@@ -6,7 +6,7 @@ on:
         required: true
       SERVER_USER:
         required: true
-      SERVER_SSH_KEY:
+      PROD_SSH_PRIVATE_KEY:
         required: true
 
 jobs:
