@@ -39,6 +39,9 @@ jobs:
             check "Config Server"   "http://localhost:8888/actuator/health"
             check "Billing Service" "http://localhost:8081/api/billing/actuator/health"
             check "IAM Service"     "http://localhost:8085/api/iam/actuator/health"
+            check "Frontend (nginx)" "https://localhost/"
+            check "NOTIFICATION SERVER" "http://localhost:8086/api/notification-service/actuator/health"
+            check "AUDit SERVER" "http://localhost:8086/api/audit-service/actuator/health"
 
       - name: Check Frontend via Nginx
         run: |
